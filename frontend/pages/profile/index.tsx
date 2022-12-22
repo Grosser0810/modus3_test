@@ -1,4 +1,6 @@
 import React from 'react';
+import { GetServerSideProps } from 'next'
+import { requireAuth } from "../../utils/utils";
 
 const Profile = () => {
     return (
@@ -7,5 +9,11 @@ const Profile = () => {
         </div>
     );
 };
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+
+    return requireAuth(true, context)
+}
+
 
 export default Profile;

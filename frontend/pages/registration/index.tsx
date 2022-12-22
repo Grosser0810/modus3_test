@@ -1,15 +1,16 @@
 import React from 'react';
 import { useFormik } from 'formik';
+import { toast } from "react-toastify";
+import Router from "next/router";
+import axios from "axios";
 
 import { REGISTRATION_FORM } from "../../constants/form";
 import styles from '../../styles/registration.module.css';
 import { Button } from "../../components/Button";
 import { FormikTextInput } from "../../components/formikTextInput";
 import { RegistrationSchema } from "../../constants/validate";
-import axios from "axios";
-import {toast, ToastContainer} from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
-import Router from "next/router";
+import {GetServerSideProps} from "next";
+import {requireAuth} from "../../utils/utils";
 
 const Registration = () => {
     const formik = useFormik({
@@ -48,9 +49,11 @@ const Registration = () => {
                     <Button disabled={false} isSubmit={true} label="Confirm" />
                 </form>
             </div>
-            <ToastContainer />
         </div>
     );
 };
+
+export const getServerSideProps: GetServerSideProps = async (context) =>
+    requireAuth(false, context)
 
 export default Registration;

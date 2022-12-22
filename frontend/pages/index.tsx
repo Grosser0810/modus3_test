@@ -1,15 +1,17 @@
 import { useFormik } from 'formik';
+import { GetServerSideProps } from "next";
 import Router from 'next/router'
 import Link from 'next/link'
 import axios from 'axios';
-import { toast, ToastContainer } from "react-toastify";
+import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import styles from '../styles/Home.module.css';
-import { HTTP } from '../sevices'
 import {LOGIN_FORM} from "../constants/form";
 import {FormikTextInput} from "../components/formikTextInput";
 import { LoginSchema } from "../constants/validate";
 import { Button } from "../components/Button";
+
+import {requireAuth} from "../utils/utils";
 
 export default function Home() {
     const formik = useFormik({
@@ -18,12 +20,10 @@ export default function Home() {
         onSubmit: (values) => {
             axios.post('http://localhost:5000/auth/login', values, {withCredentials: true})
                 .then(() => {
-                    toast.success('You are successfully logged in')
-                    // Router.replace('/profile')
+                    Router.replace('/profile').then(() => toast.success('You are successfully logged in'))
                 })
                 .catch((error) => {
-                    console.log(error)
-                    // toast.error(error.response.data.message)
+                    toast.error(error.response.data.message)
                 })
         }
     })
@@ -47,7 +47,9 @@ export default function Home() {
         <span>If you do not have an account, you can</span>
         <Link href='registration'> register</Link>
       </div>
-      <ToastContainer />
     </div>
   )
 }
+
+export const getServerSideProps: GetServerSideProps = async (context) =>
+    requireAuth(false, context)
