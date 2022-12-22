@@ -16,12 +16,15 @@ export default function Home() {
         initialValues: { email: '', password: '' },
         validationSchema: LoginSchema,
         onSubmit: (values) => {
-            axios.post('http://localhost:5000/auth/login', values)
+            axios.post('http://localhost:5000/auth/login', values, {withCredentials: true})
                 .then(() => {
                     toast.success('You are successfully logged in')
                     // Router.replace('/profile')
                 })
-                .catch((error) => toast.error(error.response.data.message))
+                .catch((error) => {
+                    console.log(error)
+                    // toast.error(error.response.data.message)
+                })
         }
     })
 
