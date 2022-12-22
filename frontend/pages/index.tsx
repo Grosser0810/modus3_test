@@ -1,4 +1,4 @@
-import { useFormik, FormikErrors } from 'formik';
+import { useFormik } from 'formik';
 import Router from 'next/router'
 import Link from 'next/link'
 import axios from 'axios';
