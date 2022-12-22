@@ -1,7 +1,18 @@
 # compiled output
 /backend/dist
+/frontend/dist
 /backend/node_modules
+/frontend/node_modules
 /backend/.env
+/frontend/.env
+
+# next.js
+frontend/.next/
+frontend/out/
+
+# dependencies
+frontend/.pnp
+frontend/.pnp.js
 
 # Logs
 /backend/logs
@@ -15,8 +26,12 @@
 .DS_Store
 
 # Tests
-/coverage
+backend/coverage
+frontend/coverage
 /.nyc_output
+
+# production
+frontend/build
 
 # IDEs and editors
 /.idea
