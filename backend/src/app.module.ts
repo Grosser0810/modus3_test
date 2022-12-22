@@ -4,10 +4,12 @@ import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb+srv://admin:admin@cluster0.feucfaf.mongodb.net/?retryWrites=true&w=majority'),
+    ConfigModule.forRoot({  isGlobal: true }),
+    MongooseModule.forRoot(process.env.DATABASE),
     UserModule,
     AuthModule
   ],

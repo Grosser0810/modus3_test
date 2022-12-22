@@ -10,15 +10,6 @@ export class Auth {
 
     @Prop({ required: true })
     password: string;
-
-    @Prop()
-    firstName: string;
-
-    @Prop()
-    lastName: string;
-
-    @Prop()
-    avatar_url: string;
 }
 
 export const AuthSchema = SchemaFactory.createForClass(Auth);

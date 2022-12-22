@@ -1,13 +1,10 @@
-import {Injectable, HttpException, HttpStatus, UseGuards} from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from "@nestjs/mongoose";
 import { Model } from 'mongoose';
-import { User, UserDocument } from "./schemas/user.schema";
-import { RegisterDTO } from './dto/register.dto'
-import {Payload} from "../types/payload";
-import {sign} from "jsonwebtoken";
-import {LoginDTO} from "../auth/dto/login.dto";
-import * as bcrypt from 'bcrypt';
-import {AuthGuard} from "@nestjs/passport";
+import { User, UserDocument} from "./schemas/user.schema";
+import {RegisterDTO } from './dto/register.dto'
+import { Payload } from "../types/payload";
+import { sign } from "jsonwebtoken";
 
 @Injectable()
 export class UserService {
@@ -28,29 +25,15 @@ export class UserService {
         const { email } = RegisterDTO;
         const user = await this.userModel.findOne({ email });
         if (user) {
-            throw new HttpException('user already exists', HttpStatus.BAD_REQUEST);
+            throw new HttpException('user with this email already exists', HttpStatus.BAD_REQUEST);
         }
         const createdUser = new this.userModel(RegisterDTO);
         await createdUser.save();
         return this.sanitizeUser(createdUser);
     }
 
-    @UseGuards(AuthGuard("jwt"))
-    async getUser() {
-
-    }
-
-    async findByEmail(UserDTO: LoginDTO) {
-        const { email, password } = UserDTO;
-        const user = await this.userModel.findOne({ email });
-        if (!user) {
-            throw new HttpException('incorrect email or password', HttpStatus.BAD_REQUEST);
-        }
-        if (await bcrypt.compare(password, user.password)) {
-            return this.sanitizeUser(user)
-        } else {
-            throw new HttpException('incorrect email or password', HttpStatus.BAD_REQUEST);
-        }
+    async findByEmail(email: string) {
+        return this.userModel.findOne({email});
     }
 
     async findByPayload(payload: Payload) {
