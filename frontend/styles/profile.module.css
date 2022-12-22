@@ -1,0 +1,25 @@
+.profileWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+  text-align: center;
+}
+
+.infoWrapper {
+  width: 500px;
+  border-radius: 8px;
+  padding: 40px;
+  box-shadow: 0 5px 28px -5px rgba(34, 60, 80, 0.23);
+}
+
+.avatar {
+  border-radius: 50%;
+  margin-bottom: 50px;
+  box-shadow: 0 5px 28px -5px rgba(34, 60, 80, 0.23);
+}
+
+.avatar:hover {
+  cursor: pointer;
+}
