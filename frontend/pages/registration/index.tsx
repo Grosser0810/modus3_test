@@ -1,16 +1,16 @@
 import React from 'react';
-import { useFormik } from 'formik';
-import { toast } from "react-toastify";
 import Router from "next/router";
 import axios from "axios";
+import { GetServerSideProps } from 'next';
+import { useFormik } from 'formik';
+import { toast } from "react-toastify";
 
-import { REGISTRATION_FORM } from "../../constants/form";
+import { REGISTRATION_FORM } from '../../constants/form';
 import styles from '../../styles/registration.module.css';
-import { Button } from "../../components/Button";
-import { FormikTextInput } from "../../components/formikTextInput";
-import { RegistrationSchema } from "../../constants/validate";
-import {GetServerSideProps} from "next";
-import {requireAuth} from "../../utils/utils";
+import { Button } from '../../components/Button';
+import { FormikTextInput } from '../../components/formikTextInput';
+import { RegistrationSchema } from '../../constants/validate';
+import { requireAuth } from '../../utils/utils';
 
 const Registration = () => {
     const formik = useFormik({

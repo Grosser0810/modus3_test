@@ -1,8 +1,9 @@
-import React, { FC, useRef, ChangeEvent, useState } from 'react';
-import styles from '../styles/avatarUpload.module.css';
+import React, { FC, useRef, ChangeEvent } from 'react';
+import FormData from 'form-data';
 import Image from "next/image";
-import {ImageLoaderProps} from "next/dist/shared/lib/image-config";
-import FormData from "form-data";
+import styles from '../styles/avatarUpload.module.css';
+import { ImageLoaderProps } from 'next/dist/shared/lib/image-config';
+
 
 interface IAvatarUploadProps {
     setFile: Function;
@@ -46,7 +47,6 @@ export const AvatarUpload: FC<IAvatarUploadProps> = ({ id, setFile, avatarUrl })
                 alt="avatar" width={200}
                 height={200}
                 className={styles.avatar}
-
             />
         </div>
     );

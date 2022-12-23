@@ -1,7 +1,7 @@
 import { Controller, Body, Post, Response } from '@nestjs/common';
 import { UserService } from "../user/user.service";
 import { AuthService } from "./auth.service";
-import {LoginDTO} from "./dto/login.dto";
+import { LoginDTO } from './dto/login.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -23,6 +23,5 @@ export class AuthController {
             httpOnly: true,
         });
         return res.send(user);
-        // return { user, token };
     }
 }
