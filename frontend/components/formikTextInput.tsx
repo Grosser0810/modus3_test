@@ -1,4 +1,4 @@
-import React, {ChangeEventHandler} from "react";
+import React, { ChangeEventHandler } from 'react';
 import styles from '../styles/textInput.module.css';
 
 interface IInputProps {

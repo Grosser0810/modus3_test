@@ -1,4 +1,4 @@
-import { GetServerSidePropsContext } from "next";
+import { GetServerSidePropsContext } from 'next';
 
 export const getAccessToken = (context: GetServerSidePropsContext) => {
     const cookie = context.req.headers.cookie || '';
@@ -7,6 +7,7 @@ export const getAccessToken = (context: GetServerSidePropsContext) => {
 }
 
 export const requireAuth = async (isNeedAuth: boolean, context: GetServerSidePropsContext) => {
+    const cookies = context.req.headers.cookie || ''
     const accessCookie = getAccessToken(context);
     const isNeedRedirect = isNeedAuth ? !accessCookie : accessCookie;
 
@@ -18,5 +19,5 @@ export const requireAuth = async (isNeedAuth: boolean, context: GetServerSidePro
             }
         }
     }
-    return { props: { } }
+    return { props: { cookies } }
 }

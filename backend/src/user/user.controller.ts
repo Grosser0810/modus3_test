@@ -1,9 +1,19 @@
-import {Body, Controller, Post, Get, Patch, UseGuards, Request, UseInterceptors, UploadedFiles} from '@nestjs/common';
-import {UserService} from "./user.service";
+import {
+  Body,
+  Controller,
+  Post,
+  Get,
+  Patch,
+  UseGuards,
+  Request,
+  UseInterceptors,
+  UploadedFiles,
+} from '@nestjs/common';
+import { UserService } from './user.service';
 import { RegisterDTO } from './dto/register.dto'
-import { JwtAuthGuard } from "../auth/jwt-auth.guard";
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { JwtService } from '@nestjs/jwt';
-import {FileFieldsInterceptor} from "@nestjs/platform-express";
+import { FileFieldsInterceptor } from '@nestjs/platform-express';
 
 @Controller('user')
 export class UserController {
@@ -28,10 +38,10 @@ export class UserController {
     async getUser(@Request() req) {
         const { authorization } = req?.headers;
         if (authorization) {
-            const decodedToken = this.jwtService.decode(authorization.split(' ')[1])
+            const decodedToken = this.jwtService.decode(authorization.split(' ')[1]);
             const user = await this.userService.findByEmail(decodedToken['email']);
 
-            return this.userService.sanitizeUser(user)
+            return this.userService.sanitizeUser(user);
         }
     }
 
@@ -40,12 +50,8 @@ export class UserController {
         { name: 'avatar', maxCount: 1 },
     ]))
     async updateAvatar(@UploadedFiles() files: { avatar?: Express.Multer.File[] }, @Body() id: string, ) {
-        console.log(files)
-        console.log(id)
-        const { avatar } = files
-        const some = await this.userService.update(id, avatar[0])
-        return this.userService.sanitizeUser(some)
-
-        // console.log('ID=====>>>', id)
+        const { avatar } = files;
+        const some = await this.userService.update(id, avatar[0]);
+        return this.userService.sanitizeUser(some);
     }
 }
