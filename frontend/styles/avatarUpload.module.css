@@ -1,0 +1,20 @@
+.avatarWrapper {
+  border-radius: 50%;
+  border: 1px solid black;
+  width: 200px;
+  height: 200px;
+  margin: 0 auto 50px auto;
+}
+
+.fileInput {
+  display: none;
+}
+
+.avatar {
+  border-radius: 50%;
+  box-shadow: 0 5px 28px -5px rgba(34, 60, 80, 0.23);
+}
+
+.avatar:hover {
+  cursor: pointer;
+}
