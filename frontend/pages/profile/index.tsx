@@ -17,9 +17,8 @@ const Profile = ({ cookies }: IProps) => {
     const { fetchUser } = useActions()
     const { _id, email, firstName, lastName, avatar_url } = useTypedSelector(state => state.user);
     const fullName = firstName || lastName ? `${firstName || ''} ${lastName || ''}` : 'none';
-
     const setAvatar = (formData: FormData) => {
-        axios.patch(`http://localhost:5000/user`, formData).then(() => {
+        axios.patch(`/api/user`, formData).then(() => {
             fetchUser(cookies)
         })
     }
@@ -39,7 +38,7 @@ export const getServerSideProps = wrapper.getServerSideProps(
     (store) => async (context) => {
         const cookies = context.req.headers.cookie || ''
         const dispatch = store.dispatch as NextThunkDispatch;
-        await dispatch(await fetchUser(cookies))
+        await dispatch(await fetchUser(cookies, context.req.headers.host))
         return requireAuth(true, context)
     }
 )

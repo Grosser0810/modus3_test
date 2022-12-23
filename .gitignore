@@ -5,6 +5,8 @@
 /frontend/node_modules
 /backend/.env
 /frontend/.env.local
+mongo-volume
+init-mongo.js
 
 # next.js
 frontend/.next/
