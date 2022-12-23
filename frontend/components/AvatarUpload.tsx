@@ -21,10 +21,8 @@ export const AvatarUpload: FC<IAvatarUploadProps> = ({ id, setFile, avatarUrl })
     }
 
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-        console.log(e.target.files)
         if (e.target.files?.length) {
             const formData = new FormData();
-
             formData.append('avatar', e?.target.files[0])
             formData.append('id', id)
             setFile(formData)

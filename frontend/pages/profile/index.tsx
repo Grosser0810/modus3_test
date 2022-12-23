@@ -19,8 +19,7 @@ const Profile = ({ cookies }: IProps) => {
     const fullName = firstName || lastName ? `${firstName || ''} ${lastName || ''}` : 'none';
 
     const setAvatar = (formData: FormData) => {
-        axios.patch(`http://localhost:5000/user`, formData).then(response => {
-            console.log(formData);
+        axios.patch(`http://localhost:5000/user`, formData).then(() => {
             fetchUser(cookies)
         })
     }
