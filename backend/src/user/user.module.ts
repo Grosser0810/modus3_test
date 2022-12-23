@@ -4,6 +4,7 @@ import {MongooseModule} from "@nestjs/mongoose";
 import {UserSchema} from "./schemas/user.schema";
 import { UserController } from './user.controller';
 import {JwtModule} from "@nestjs/jwt";
+import {FileService} from "../file/file.service";
 
 @Module({
   imports: [
@@ -13,7 +14,7 @@ import {JwtModule} from "@nestjs/jwt";
       signOptions: { expiresIn: '1d' },
     }),
   ],
-  providers: [UserService],
+  providers: [UserService, FileService],
   controllers: [UserController],
   exports: [UserService],
 })

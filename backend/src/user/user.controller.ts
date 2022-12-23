@@ -1,8 +1,9 @@
-import {Body, Controller, Post, Get, Patch, UseGuards, Request} from '@nestjs/common';
+import {Body, Controller, Post, Get, Patch, UseGuards, Request, UseInterceptors, UploadedFiles} from '@nestjs/common';
 import {UserService} from "./user.service";
 import { RegisterDTO } from './dto/register.dto'
 import { JwtAuthGuard } from "../auth/jwt-auth.guard";
 import { JwtService } from '@nestjs/jwt';
+import {FileFieldsInterceptor} from "@nestjs/platform-express";
 
 @Controller('user')
 export class UserController {
@@ -32,11 +33,19 @@ export class UserController {
 
             return this.userService.sanitizeUser(user)
         }
-
     }
 
     @Patch()
-    async updateAvatar() {
+    @UseInterceptors(FileFieldsInterceptor([
+        { name: 'avatar', maxCount: 1 },
+    ]))
+    async updateAvatar(@UploadedFiles() files: { avatar?: Express.Multer.File[] }, @Body() id: string, ) {
+        console.log(files)
+        console.log(id)
+        const { avatar } = files
+        const some = await this.userService.update(id, avatar[0])
+        return this.userService.sanitizeUser(some)
 
+        // console.log('ID=====>>>', id)
     }
 }

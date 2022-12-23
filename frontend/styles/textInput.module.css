@@ -1,0 +1,39 @@
+.inputWrapper {
+  position: relative;
+  padding-bottom: 30px;
+  width: 100%;
+}
+
+.textInput,
+.textInputError {
+  border-radius: 4px;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px 15px;
+  outline: none;
+  border-color: #bdbdbd;
+  box-shadow: none;
+  color: #212121;
+  font-size: 18px;
+}
+
+.textInput::placeholder,
+.textInputError::placeholder {
+  font-size: 18px;
+}
+
+.textInputError {
+  border-color: #f44336;
+}
+
+.textInputError::placeholder {
+  color: #f44336;
+}
+
+.textError {
+  position: absolute;
+  width: 100%;
+  left: 15px;
+  bottom: 8px;
+  color: #f44336;
+}

@@ -1,14 +1,15 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { InjectModel } from "@nestjs/mongoose";
-import { Model } from 'mongoose';
-import { User, UserDocument} from "./schemas/user.schema";
-import {RegisterDTO } from './dto/register.dto'
-import { Payload } from "../types/payload";
-import { sign } from "jsonwebtoken";
+import {HttpException, HttpStatus, Injectable} from '@nestjs/common';
+import {InjectModel} from "@nestjs/mongoose";
+import {Model} from 'mongoose';
+import {User, UserDocument} from "./schemas/user.schema";
+import {RegisterDTO} from './dto/register.dto'
+import {Payload} from "../types/payload";
+import {sign} from "jsonwebtoken";
+import {FileService} from "../file/file.service";
 
 @Injectable()
 export class UserService {
-    constructor(@InjectModel(User.name) private userModel: Model<UserDocument>) {
+    constructor(@InjectModel(User.name) private userModel: Model<UserDocument>, private fileService: FileService) {
     }
 
     sanitizeUser(user: UserDocument) {
@@ -32,6 +33,11 @@ export class UserService {
         return this.sanitizeUser(createdUser);
     }
 
+    async update(id: string, file) {
+        const avatar_url = this.fileService.createFile(file)
+        return this.userModel.findByIdAndUpdate(id, { avatar_url });
+    }
+
     async findByEmail(email: string) {
         return this.userModel.findOne({email});
     }
@@ -39,5 +45,9 @@ export class UserService {
     async findByPayload(payload: Payload) {
         const { email } = payload;
         return this.userModel.findOne({email});
+    }
+
+    async uploadAvatar(file) {
+       const avatarPath = this.fileService.createFile(file)
     }
 }
