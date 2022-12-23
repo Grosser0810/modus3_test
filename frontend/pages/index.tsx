@@ -1,24 +1,23 @@
 import { useFormik } from 'formik';
-import { GetServerSideProps } from "next";
+import { GetServerSideProps } from 'next';
 import Router from 'next/router'
 import Link from 'next/link'
 import axios from 'axios';
-import { toast } from "react-toastify";
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import styles from '../styles/Home.module.css';
-import {LOGIN_FORM} from "../constants/form";
-import {FormikTextInput} from "../components/formikTextInput";
-import { LoginSchema } from "../constants/validate";
-import { Button } from "../components/Button";
-
-import {requireAuth} from "../utils/utils";
+import styles from '../styles/home.module.css';
+import { LOGIN_FORM } from '../constants/form';
+import { FormikTextInput } from '../components/formikTextInput';
+import { LoginSchema } from '../constants/validate';
+import { Button } from '../components/Button';
+import { requireAuth } from '../utils/utils';
 
 export default function Home() {
     const formik = useFormik({
         initialValues: { email: '', password: '' },
         validationSchema: LoginSchema,
         onSubmit: (values) => {
-            axios.post('http://localhost:5000/auth/login', values, {withCredentials: true})
+            axios.post('/api/auth/login', values, {withCredentials: true})
                 .then(() => {
                     Router.replace('/profile').then(() => toast.success('You are successfully logged in'))
                 })

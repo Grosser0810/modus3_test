@@ -10,7 +10,7 @@ const rootReducer = combineReducers({
     user: userReducer
 })
 
-export const reducer = (state, action) => {
+export const reducer = (state: any, action: any) => {
     if (action.type === HYDRATE) {
         const nextState = {
             ...state, // use previous state

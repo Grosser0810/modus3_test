@@ -15,4 +15,5 @@ const WrapperApp: FC<AppProps> = ({ Component, ...rest }) => {
         </Provider>
     );
 }
+
 export default WrapperApp;

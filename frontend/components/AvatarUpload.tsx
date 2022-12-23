@@ -13,7 +13,6 @@ interface IAvatarUploadProps {
 
 export const AvatarUpload: FC<IAvatarUploadProps> = ({ id, setFile, avatarUrl }) => {
     const ref = useRef<HTMLInputElement>(null);
-
     const avatarLoader = ({ src }: ImageLoaderProps) => avatarUrl ? `http://localhost:5000/${avatarUrl}` : src
 
     const handleClick = () => {
@@ -21,7 +20,7 @@ export const AvatarUpload: FC<IAvatarUploadProps> = ({ id, setFile, avatarUrl })
     }
 
     const onChange = (e: ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files?.length) {
+        if (e?.target.files?.length) {
             const formData = new FormData();
             formData.append('avatar', e?.target.files[0])
             formData.append('id', id)

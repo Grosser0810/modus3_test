@@ -1,0 +1,29 @@
+version: '3.8'
+
+services:
+  frontend:
+    image: 'frontend'
+    build: ./frontend
+    ports:
+      - '3000:3000'
+
+  backend:
+    image: 'backend'
+    build: ./backend
+    ports:
+      - '5000:5000'
+
+  database:
+    image: 'mongo'
+    container_name: 'mongo-container'
+    environment:
+      - MONGO_INITDB_DATABASE=cluster0
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=admin
+    volumes:
+      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+      - ./mongo-volume:/data/db
+    ports:
+      - '27017:27017'
+
+

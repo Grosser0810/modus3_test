@@ -24,7 +24,7 @@ const Registration = () => {
         validationSchema: RegistrationSchema,
         onSubmit: (values) => {
             const { confirmPassword, ...rest } = values;
-            axios.post('http://localhost:5000/user', rest)
+            axios.post('/api/user', rest)
                 .then(() => {
                     Router.push('/').then(() =>toast.success('You have successfully registered'))
                 })

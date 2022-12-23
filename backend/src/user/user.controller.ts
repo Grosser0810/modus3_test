@@ -14,6 +14,7 @@ import { RegisterDTO } from './dto/register.dto'
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { JwtService } from '@nestjs/jwt';
 import { FileFieldsInterceptor } from '@nestjs/platform-express';
+import { Types } from 'mongoose';
 
 @Controller('user')
 export class UserController {
@@ -49,7 +50,7 @@ export class UserController {
     @UseInterceptors(FileFieldsInterceptor([
         { name: 'avatar', maxCount: 1 },
     ]))
-    async updateAvatar(@UploadedFiles() files: { avatar?: Express.Multer.File[] }, @Body() id: string, ) {
+    async updateAvatar(@UploadedFiles() files: { avatar?: Express.Multer.File[] }, @Body() id: Types.ObjectId) {
         const { avatar } = files;
         const some = await this.userService.update(id, avatar[0]);
         return this.userService.sanitizeUser(some);
